@@ -48,12 +48,15 @@
 
         <TextView
             android:id="@+id/movieOverviewTextView"
-            android:maxLines="4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Overview"
+            android:layout_marginEnd="8dp"
+            android:maxLines="4"
             android:text="@{movie.overview}"
+            app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="@+id/posterImageView"
-            app:layout_constraintStart_toStartOf="@+id/releaseDateTextView" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/releaseDateTextView"
+            tools:text="Overview Lorem ipsum dolor sit amet Lorem ipsum dolor sit ametLorem ipsum" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

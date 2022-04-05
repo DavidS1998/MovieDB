@@ -1,22 +1,21 @@
 package aria.moviedb
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import aria.moviedb.database.Movies
-import aria.moviedb.databinding.FragmentFirstBinding
-import aria.moviedb.utils.Constants
-import com.bumptech.glide.Glide
+import aria.moviedb.databinding.FragmentMovieListBinding
+import aria.moviedb.databinding.MovieListItemBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class FirstFragment : Fragment() {
 
-    private var _binding: FragmentFirstBinding? = null
+    private var _binding: FragmentMovieListBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -26,10 +25,22 @@ class FirstFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _binding = FragmentMovieListBinding.inflate(inflater, container, false)
 
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
-
+        // Generate list of hardcoded movies, and add these to the binding
         val movies = Movies()
+
+        // Create move list entries automatically
+        movies.movieList.forEach { movie ->
+            val movieListItemBinding: MovieListItemBinding = DataBindingUtil.inflate(
+                inflater,
+                R.layout.movie_list_item,
+                container,
+                false)
+            movieListItemBinding.movie = movie
+
+            binding.movieListLinearLayout.addView(movieListItemBinding.root)
+        }
         binding.movies = movies
 
         return binding.root
@@ -37,23 +48,6 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
-//        Glide
-//            .with(this)
-//            .load(Constants.POSTER_URL + Constants.POSTER_SIZE + Movies().movieList[0].posterPath)
-//            .into(binding.movie1.posterImageView);
-
-//        binding.movie1.titleTextView.text = movies.movieList[0].title
-//        binding.movie2.titleTextView.text = movies.movieList[1].title
-//        binding.movie3.titleTextView.text = movies.movieList[2].title
-//        binding.movie4.titleTextView.text = movies.movieList[3].title
-//        binding.movie5.titleTextView.text = movies.movieList[4].title
-
-//        binding.buttonFirst.setOnClickListener {
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-//        }
     }
 
     override fun onDestroyView() {
