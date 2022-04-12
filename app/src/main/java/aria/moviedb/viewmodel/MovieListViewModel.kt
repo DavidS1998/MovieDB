@@ -5,13 +5,15 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import aria.moviedb.database.Details
 import aria.moviedb.database.MovieDatabaseDao
 import aria.moviedb.database.Movies
 import aria.moviedb.model.Movie
+import aria.moviedb.model.MovieDetails
 import kotlinx.coroutines.launch
 
-class MovieListViewModel(private val movieDatabaseDao: MovieDatabaseDao, application: Application) : AndroidViewModel(application) {
-
+class MovieListViewModel(private val movieDatabaseDao: MovieDatabaseDao, application: Application) :
+    AndroidViewModel(application) {
 
     private val _movies = MutableLiveData<List<Movie>>()
     val movies: LiveData<List<Movie>>

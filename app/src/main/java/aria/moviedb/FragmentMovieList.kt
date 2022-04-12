@@ -10,11 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.room.Dao
+import aria.moviedb.database.Details
 import aria.moviedb.database.MovieDatabase
 import aria.moviedb.database.MovieDatabaseDao
 import aria.moviedb.database.Movies
 import aria.moviedb.databinding.FragmentMovieListBinding
 import aria.moviedb.databinding.MovieListItemBinding
+import aria.moviedb.model.MovieDetails
 import aria.moviedb.viewmodel.MovieListViewModel
 import aria.moviedb.viewmodel.MovieListViewModelFactory
 import timber.log.Timber
@@ -33,6 +35,7 @@ class FragmentMovieList : Fragment() {
     private lateinit var viewModel: MovieListViewModel
     private lateinit var viewModelFactory: MovieListViewModelFactory
     private lateinit var movieDatabaseDao: MovieDatabaseDao
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
