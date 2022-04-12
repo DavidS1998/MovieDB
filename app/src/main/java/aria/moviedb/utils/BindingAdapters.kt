@@ -13,3 +13,13 @@ fun bindPosterImage(imgView: ImageView, imgUrl: String) {
             .into(imgView)
     }
 }
+
+@BindingAdapter("bannerImageUrl")
+fun bindBannerImage(imgView: ImageView, imgUrl: String) {
+    imgUrl.let { bannerPath ->
+        Glide
+            .with(imgView)
+            .load(Constants.BANNER_URL + Constants.BANNER_IMAGE_WIDTH + bannerPath)
+            .into(imgView)
+    }
+}
