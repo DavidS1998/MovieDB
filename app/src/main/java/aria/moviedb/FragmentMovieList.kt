@@ -9,6 +9,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.room.Dao
+import aria.moviedb.database.MovieDatabase
+import aria.moviedb.database.MovieDatabaseDao
 import aria.moviedb.database.Movies
 import aria.moviedb.databinding.FragmentMovieListBinding
 import aria.moviedb.databinding.MovieListItemBinding
@@ -29,6 +32,7 @@ class FragmentMovieList : Fragment() {
 
     private lateinit var viewModel: MovieListViewModel
     private lateinit var viewModelFactory: MovieListViewModelFactory
+    private lateinit var movieDatabaseDao: MovieDatabaseDao
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,8 +42,9 @@ class FragmentMovieList : Fragment() {
         _binding = FragmentMovieListBinding.inflate(inflater)
 
         val application = requireNotNull(this.activity).application
+        movieDatabaseDao = MovieDatabase.getDatabase(application).movieDatabaseDao()
 
-        viewModelFactory = MovieListViewModelFactory(application)
+        viewModelFactory = MovieListViewModelFactory(movieDatabaseDao, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MovieListViewModel::class.java)
 
         viewModel.movies.observe(viewLifecycleOwner) { movieList ->
@@ -57,7 +62,6 @@ class FragmentMovieList : Fragment() {
         }
 
         setHasOptionsMenu(true)
-
         return binding.root
     }
 
@@ -75,10 +79,14 @@ class FragmentMovieList : Fragment() {
                 true
             }
             R.id.action_top_rated_movies -> {
+                viewModel.addMovie()
+
                 Timber.i("Top Rated Movies Clicked")
                 true
             }
             R.id.action_saved_movies -> {
+                viewModel.getSavedMovies()
+
                 Timber.i("Saved Movies Clicked")
                 true
             }
