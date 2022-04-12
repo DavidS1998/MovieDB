@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import aria.moviedb.database.Movies
 import aria.moviedb.databinding.FragmentMovieListBinding
 import aria.moviedb.databinding.MovieListItemBinding
+import aria.moviedb.viewmodel.MovieListViewModel
+import aria.moviedb.viewmodel.MovieListViewModelFactory
 import timber.log.Timber
 
 /**
@@ -24,29 +27,34 @@ class FragmentMovieList : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private lateinit var viewModel: MovieListViewModel
+    private lateinit var viewModelFactory: MovieListViewModelFactory
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         _binding = FragmentMovieListBinding.inflate(inflater)
 
-        // Generate list of hardcoded movies, and add these to the binding
-        val movies = Movies()
+        val application = requireNotNull(this.activity).application
 
-        // Create move list entries automatically
-        movies.movieList.forEach { movie ->
-            val movieListItemBinding: MovieListItemBinding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.movie_list_item,
-                container,
-                false)
-            movieListItemBinding.movie = movie
-            movieListItemBinding.root.setOnClickListener{
-                this.findNavController().navigate(FragmentMovieListDirections.actionListToDetails(movie))
+        viewModelFactory = MovieListViewModelFactory(application)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MovieListViewModel::class.java)
+
+        viewModel.movies.observe(viewLifecycleOwner) { movieList ->
+            movieList.forEach { movie ->
+                val movieListItemBinding: MovieListItemBinding = DataBindingUtil.inflate(
+                    inflater, R.layout.movie_list_item, container,false
+                )
+                movieListItemBinding.movie = movie
+                movieListItemBinding.root.setOnClickListener {
+                    this.findNavController()
+                        .navigate(FragmentMovieListDirections.actionListToDetails(movie))
+                }
+                binding.movieListLinearLayout.addView(movieListItemBinding.root)
             }
-            binding.movieListLinearLayout.addView(movieListItemBinding.root)
         }
-//        binding.movies = movies
 
         setHasOptionsMenu(true)
 
