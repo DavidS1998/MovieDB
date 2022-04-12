@@ -7,5 +7,6 @@ import kotlinx.parcelize.Parcelize
 data class MovieDetails(
     var id: Long = 0L,
     var homepage: String,
-    var imdb_id: String
+    var imdb_id: String,
+    var genres: List<String>
 ) : Parcelable

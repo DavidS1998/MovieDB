@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="movie"
             type="aria.moviedb.model.Movie" />
+
         <variable
             name="details"
             type="aria.moviedb.model.MovieDetails" />
@@ -60,6 +62,17 @@
             app:backgroundTint="@android:color/holo_orange_dark"
             app:layout_constraintBottom_toBottomOf="@+id/return_to_list"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/Genres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:autoLink="web"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/Homepage"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Comedy" />
 
         <TextView
             android:id="@+id/Homepage"

@@ -1,8 +1,5 @@
 package aria.moviedb
 
-import android.R
-import android.content.ActivityNotFoundException
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -14,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import aria.moviedb.database.Details
 import aria.moviedb.databinding.FragmentMovieDetailsBinding
 import aria.moviedb.model.Movie
+import aria.moviedb.model.MovieDetails
 
 
 /**
@@ -25,7 +23,7 @@ class FragmentMovieDetails : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var movie: Movie
-    private lateinit var details: Details
+    private lateinit var currentDetails: MovieDetails
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,20 +33,21 @@ class FragmentMovieDetails : Fragment() {
         movie = FragmentMovieDetailsArgs.fromBundle(requireArguments()).movie
         binding.movie = movie
 
-        details = Details()
-        binding.details = details.detailsList[movie.id.toInt()];
-        var imdbID = details.detailsList[movie.id.toInt()].imdb_id
+        // Initialize movie details database, and bind it
+        currentDetails = Details().detailsList[movie.id.toInt()]
+        binding.details = currentDetails
 
+        // List genres at the bottom
+        binding.Genres.text = currentDetails.genres.joinToString(separator = ", ")
+
+        // Clicking on IMDB button starts an IMDB activity
         binding.IMDB.setOnClickListener {
-//            val imdbIntent: Intent = Uri.parse("https://www.imdb.com/title/tt0093058/").let { url ->
-            val imdbIntent: Intent = Uri.parse("https://www.imdb.com/title/$imdbID").let { url ->
-                Intent(Intent.ACTION_VIEW, url)
-            }
+            val imdbIntent: Intent =
+                Uri.parse("https://www.imdb.com/title/" + currentDetails.imdb_id).let { url ->
+                    Intent(Intent.ACTION_VIEW, url)
+                }
             val chooser = Intent.createChooser(imdbIntent, "Open with")
-
             startActivity(chooser)
-
-
         }
 
         return binding.root

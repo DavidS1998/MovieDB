@@ -10,35 +10,40 @@ class Details {
             MovieDetails(
                 0,
                 "https://www.warnerbros.com/movies/full-metal-jacket/",
-                "tt0093058"
+                "tt0093058",
+                listOf("Drama", "Action", "Thriller")
             )
         )
         detailsList.add(
             MovieDetails(
                 1,
                 "https://www.warnerbros.com/movies/poseidon/",
-                "tt0409182"
+                "tt0409182",
+                listOf("Drama")
             )
         )
         detailsList.add(
             MovieDetails(
                 2,
                 "http://www.loveactually.com/",
-                "tt0314331"
+                "tt0314331",
+                listOf("Action")
             )
         )
         detailsList.add(
             MovieDetails(
                 3,
                 "http://www.scoopmovie.net/",
-                "tt0457513"
+                "tt0457513",
+                listOf("Comedy", "Family")
             )
         )
         detailsList.add(
             MovieDetails(
                 4,
                 "http://www.sommervormbalkon.de/",
-                "tt0477877"
+                "tt0477877",
+                listOf("Comedy", "Thriller")
             )
         )
 
@@ -46,37 +51,42 @@ class Details {
 
         detailsList.add(
             MovieDetails(
-                5,
+                0,
                 "https://www.warnerbros.com/movies/full-metal-jacket/",
-                "tt0093058"
+                "tt0093058",
+                listOf("Drama", "Action", "Thriller")
             )
         )
         detailsList.add(
             MovieDetails(
-                6,
+                1,
                 "https://www.warnerbros.com/movies/poseidon/",
-                "tt0409182"
+                "tt0409182",
+                listOf("Drama")
             )
         )
         detailsList.add(
             MovieDetails(
-                7,
+                2,
                 "http://www.loveactually.com/",
-                "tt0314331"
+                "tt0314331",
+                listOf("Action")
             )
         )
         detailsList.add(
             MovieDetails(
-                8,
+                3,
                 "http://www.scoopmovie.net/",
-                "tt0457513"
+                "tt0457513",
+                listOf("Comedy", "Family")
             )
         )
         detailsList.add(
             MovieDetails(
-                9,
+                4,
                 "http://www.sommervormbalkon.de/",
-                "tt0477877"
+                "tt0477877",
+                listOf("Comedy", "Thriller")
             )
         )
     }
