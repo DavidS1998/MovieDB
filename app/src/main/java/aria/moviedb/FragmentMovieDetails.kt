@@ -59,6 +59,10 @@ class FragmentMovieDetails : Fragment() {
         binding.returnToList.setOnClickListener {
             findNavController().navigate(FragmentMovieDetailsDirections.actionDetailsToList())
         }
+
+        binding.posterButton.setOnClickListener {
+            findNavController().navigate(FragmentMovieDetailsDirections.actionFragmentMovieDetailsToFragmentFullPoster(movie))
+        }
     }
 
     override fun onDestroyView() {
