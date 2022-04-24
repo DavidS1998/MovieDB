@@ -12,6 +12,11 @@ import aria.moviedb.database.Details
 import aria.moviedb.databinding.FragmentMovieDetailsBinding
 import aria.moviedb.model.Movie
 import aria.moviedb.model.MovieDetails
+import aria.moviedb.network.DataFetchStatus
+import aria.moviedb.network.DetailsResponse
+import aria.moviedb.network.MovieResponse
+import aria.moviedb.viewmodel.MovieDetailsViewModel
+import aria.moviedb.viewmodel.MovieListViewModel
 
 
 /**
@@ -22,6 +27,7 @@ class FragmentMovieDetails : Fragment() {
     private var _binding: FragmentMovieDetailsBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var viewModel: MovieDetailsViewModel
     private lateinit var movie: Movie
     private lateinit var currentDetails: MovieDetails
 
@@ -33,21 +39,27 @@ class FragmentMovieDetails : Fragment() {
         movie = FragmentMovieDetailsArgs.fromBundle(requireArguments()).movie
         binding.movie = movie
 
-        // Initialize movie details database, and bind it
-        currentDetails = Details().detailsList[movie.id.toInt()]
-        binding.details = currentDetails
+        // Initialize the ViewModel
+        val application = requireNotNull(this.activity).application
+        viewModel = MovieDetailsViewModel(movie.id, application)
 
-        // List genres at the bottom
-        binding.Genres.text = currentDetails.genres.joinToString(separator = ", ")
+        viewModel.details.observe(viewLifecycleOwner) { details ->
+            details?.let {
+                binding.details = details
 
-        // Clicking on IMDB button starts an IMDB activity
-        binding.IMDB.setOnClickListener {
-            val imdbIntent: Intent =
-                Uri.parse("https://www.imdb.com/title/" + currentDetails.imdb_id).let { url ->
-                    Intent(Intent.ACTION_VIEW, url)
+                // List genres at the bottom
+//                binding.Genres.text = details.genres.joinToString(separator = ", ")
+
+                // Clicking on IMDB button starts an IMDB activity
+                binding.IMDB.setOnClickListener {
+                    val imdbIntent: Intent =
+                        Uri.parse("https://www.imdb.com/title/" + details.imdb_id).let { url ->
+                            Intent(Intent.ACTION_VIEW, url)
+                        }
+                    val chooser = Intent.createChooser(imdbIntent, "Open with")
+                    startActivity(chooser)
                 }
-            val chooser = Intent.createChooser(imdbIntent, "Open with")
-            startActivity(chooser)
+            }
         }
 
         return binding.root

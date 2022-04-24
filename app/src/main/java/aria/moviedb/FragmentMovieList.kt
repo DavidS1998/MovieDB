@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.room.Dao
+import aria.moviedb.adapter.MovieListAdapter
+import aria.moviedb.adapter.MovieListClickListener
 import aria.moviedb.database.Details
 import aria.moviedb.database.MovieDatabase
 import aria.moviedb.database.MovieDatabaseDao
@@ -17,6 +19,7 @@ import aria.moviedb.database.Movies
 import aria.moviedb.databinding.FragmentMovieListBinding
 import aria.moviedb.databinding.MovieListItemBinding
 import aria.moviedb.model.MovieDetails
+import aria.moviedb.network.DataFetchStatus
 import aria.moviedb.viewmodel.MovieListViewModel
 import aria.moviedb.viewmodel.MovieListViewModelFactory
 import timber.log.Timber
@@ -50,17 +53,42 @@ class FragmentMovieList : Fragment() {
         viewModelFactory = MovieListViewModelFactory(movieDatabaseDao, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MovieListViewModel::class.java)
 
-        viewModel.movies.observe(viewLifecycleOwner) { movieList ->
-            movieList.forEach { movie ->
-                val movieListItemBinding: MovieListItemBinding = DataBindingUtil.inflate(
-                    inflater, R.layout.movie_list_item, container,false
-                )
-                movieListItemBinding.movie = movie
-                movieListItemBinding.root.setOnClickListener {
-                    this.findNavController()
-                        .navigate(FragmentMovieListDirections.actionListToDetails(movie))
+        val movieListAdapter = MovieListAdapter(MovieListClickListener { movie ->
+            viewModel.onMovieListItemClicked(movie)
+        })
+        binding.movieListRv.adapter = movieListAdapter
+
+        viewModel.dataFetchStatus.observe(viewLifecycleOwner) { status ->
+            status?.let {
+                when (status) {
+                    DataFetchStatus.LOADING -> {
+                        binding.statusImage.visibility = View.VISIBLE
+                        binding.statusImage.setImageResource(R.drawable.loading_animation)
+                    }
+                    DataFetchStatus.ERROR -> {
+                        binding.statusImage.visibility = View.VISIBLE
+                        binding.statusImage.setImageResource(R.drawable.ic_connection_error)
+                    }
+                    DataFetchStatus.DONE -> {
+                        binding.statusImage.visibility = View.GONE
+                        Timber.e("Error fetching data")
+                    }
                 }
-                binding.movieListLinearLayout.addView(movieListItemBinding.root)
+            }
+        }
+
+        viewModel.movies.observe(viewLifecycleOwner) { movies ->
+            movies?.let {
+                movieListAdapter.submitList(movies)
+            }
+        }
+
+        viewModel.navigateToMovieData.observe(viewLifecycleOwner) { movie ->
+            movie?.let {
+                this.findNavController().navigate(
+                    FragmentMovieListDirections.actionListToDetails(movie)
+                )
+                viewModel.onMovieDetailNavigated()
             }
         }
 
@@ -79,10 +107,12 @@ class FragmentMovieList : Fragment() {
         return when (item.itemId) {
             R.id.action_popular_movies -> {
                 Timber.i("Popular Movies Clicked")
+                viewModel.getPopularMovies()
+
                 true
             }
             R.id.action_top_rated_movies -> {
-                viewModel.addMovie()
+                viewModel.getTopMovies()
 
                 Timber.i("Top Rated Movies Clicked")
                 true
