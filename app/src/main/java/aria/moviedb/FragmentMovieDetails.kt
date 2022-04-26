@@ -8,10 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import aria.moviedb.database.MovieDatabase
+import aria.moviedb.database.MovieDatabaseDao
 import aria.moviedb.databinding.FragmentMovieDetailsBinding
 import aria.moviedb.model.Movie
 import aria.moviedb.model.MovieDetails
 import aria.moviedb.viewmodel.MovieDetailsViewModel
+import aria.moviedb.viewmodel.MovieListViewModel
+import aria.moviedb.viewmodel.MovieListViewModelFactory
 
 
 /**
@@ -24,6 +28,7 @@ class FragmentMovieDetails : Fragment() {
 
     private lateinit var viewModel: MovieDetailsViewModel
     private lateinit var movie: Movie
+    private lateinit var movieDatabaseDao: MovieDatabaseDao
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +40,9 @@ class FragmentMovieDetails : Fragment() {
 
         // Initialize the ViewModel
         val application = requireNotNull(this.activity).application
-        viewModel = MovieDetailsViewModel(movie.id, application)
+        movieDatabaseDao = MovieDatabase.getDatabase(application).movieDatabaseDao()
+        viewModel = MovieDetailsViewModel(movieDatabaseDao, movie.id, application)
+        binding.viewModel = viewModel
 
         // Movie details
         viewModel.details.observe(viewLifecycleOwner) { details ->
