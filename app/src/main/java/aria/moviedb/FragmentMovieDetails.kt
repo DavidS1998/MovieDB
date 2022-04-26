@@ -8,15 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import aria.moviedb.database.Details
 import aria.moviedb.databinding.FragmentMovieDetailsBinding
 import aria.moviedb.model.Movie
 import aria.moviedb.model.MovieDetails
-import aria.moviedb.network.DataFetchStatus
-import aria.moviedb.network.DetailsResponse
-import aria.moviedb.network.MovieResponse
 import aria.moviedb.viewmodel.MovieDetailsViewModel
-import aria.moviedb.viewmodel.MovieListViewModel
 
 
 /**
@@ -29,7 +24,6 @@ class FragmentMovieDetails : Fragment() {
 
     private lateinit var viewModel: MovieDetailsViewModel
     private lateinit var movie: Movie
-    private lateinit var currentDetails: MovieDetails
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +37,7 @@ class FragmentMovieDetails : Fragment() {
         val application = requireNotNull(this.activity).application
         viewModel = MovieDetailsViewModel(movie.id, application)
 
+        // Movie details
         viewModel.details.observe(viewLifecycleOwner) { details ->
             details?.let {
                 binding.details = details
@@ -61,6 +56,15 @@ class FragmentMovieDetails : Fragment() {
                 }
             }
         }
+
+        // Reviews
+        viewModel.reviews.observe(viewLifecycleOwner) { reviews ->
+            reviews?.let {
+                binding.reviews = reviews
+            }
+        }
+
+//        binding.videoView.setVideoURI(Uri.parse("https://www.themoviedb.org/video/play?key=774825"))
 
         return binding.root
     }

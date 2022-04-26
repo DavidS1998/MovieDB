@@ -12,6 +12,10 @@
         <variable
             name="details"
             type="aria.moviedb.model.MovieDetails" />
+
+        <variable
+            name="reviews"
+            type="aria.moviedb.model.Reviews" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -81,11 +85,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:autoLink="web"
-            android:textStyle="bold"
             android:text="@{details.genres}"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/Homepage"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="Comedy" />
+            tools:text="Comedy, Family" />
 
         <TextView
             android:id="@+id/Homepage"
@@ -107,6 +111,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+<!--        <VideoView-->
+<!--            android:id="@+id/videoView"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:visibility="visible"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/Genres"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/movie_detail_description"-->
+<!--            app:layout_constraintVertical_bias="1.0" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

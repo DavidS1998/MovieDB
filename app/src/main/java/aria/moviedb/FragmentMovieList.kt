@@ -5,20 +5,15 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.room.Dao
+import androidx.recyclerview.widget.GridLayoutManager
 import aria.moviedb.adapter.MovieListAdapter
 import aria.moviedb.adapter.MovieListClickListener
-import aria.moviedb.database.Details
 import aria.moviedb.database.MovieDatabase
 import aria.moviedb.database.MovieDatabaseDao
-import aria.moviedb.database.Movies
 import aria.moviedb.databinding.FragmentMovieListBinding
-import aria.moviedb.databinding.MovieListItemBinding
-import aria.moviedb.model.MovieDetails
 import aria.moviedb.network.DataFetchStatus
 import aria.moviedb.viewmodel.MovieListViewModel
 import aria.moviedb.viewmodel.MovieListViewModelFactory
@@ -68,10 +63,10 @@ class FragmentMovieList : Fragment() {
                     DataFetchStatus.ERROR -> {
                         binding.statusImage.visibility = View.VISIBLE
                         binding.statusImage.setImageResource(R.drawable.ic_connection_error)
+                        Timber.e("Error fetching data")
                     }
                     DataFetchStatus.DONE -> {
                         binding.statusImage.visibility = View.GONE
-                        Timber.e("Error fetching data")
                     }
                 }
             }
@@ -93,6 +88,10 @@ class FragmentMovieList : Fragment() {
         }
 
         setHasOptionsMenu(true)
+
+        // Posters layout
+        val manager = GridLayoutManager(activity, 2)
+        binding.movieListRv.layoutManager = manager
         return binding.root
     }
 

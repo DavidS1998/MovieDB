@@ -6,11 +6,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import aria.moviedb.database.Details
 import aria.moviedb.database.MovieDatabaseDao
-import aria.moviedb.database.Movies
 import aria.moviedb.model.Movie
-import aria.moviedb.model.MovieDetails
 import aria.moviedb.network.DataFetchStatus
 import aria.moviedb.network.MovieResponse
 import kotlinx.coroutines.launch
@@ -38,7 +35,7 @@ class MovieListViewModel(private val movieDatabaseDao: MovieDatabaseDao, applica
 
     init {
         _dataFetchStatus.postValue(DataFetchStatus.LOADING)
-        getPopularMovies()
+        getTopMovies()
     }
 
     fun getPopularMovies() {

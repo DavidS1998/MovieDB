@@ -1,5 +1,6 @@
 import aria.moviedb.network.DetailsResponse
 import aria.moviedb.network.MovieResponse
+import aria.moviedb.network.ReviewsReponse
 import aria.moviedb.utils.Constants
 import aria.moviedb.utils.Secrets
 import com.squareup.moshi.Moshi
@@ -67,6 +68,12 @@ interface TMDBApiService {
         @Path("movie_id")
         movieId: String
     ): DetailsResponse
+
+    @GET("{movie_id}/reviews?api_key=${Secrets.API_KEY}")
+    suspend fun getReviews(
+        @Path("movie_id")
+        movieId: String
+    ): ReviewsReponse
 }
 
 object TMDBApi {

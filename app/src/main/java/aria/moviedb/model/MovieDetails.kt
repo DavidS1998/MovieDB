@@ -1,8 +1,6 @@
 package aria.moviedb.model
 
 import android.os.Parcelable
-import aria.moviedb.database.Details
-import aria.moviedb.network.Genres
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
