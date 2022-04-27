@@ -10,7 +10,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "movies")
 data class Movie(
-    @PrimaryKey()
+    @PrimaryKey
     @ColumnInfo(name = "id")
     var id: Long = 0L,
 

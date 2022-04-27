@@ -107,7 +107,6 @@ class FragmentMovieList : Fragment() {
             R.id.action_popular_movies -> {
                 Timber.i("Popular Movies Clicked")
                 viewModel.getPopularMovies()
-
                 true
             }
             R.id.action_top_rated_movies -> {
@@ -130,4 +129,6 @@ class FragmentMovieList : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }

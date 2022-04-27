@@ -44,6 +44,22 @@ class FragmentMovieDetails : Fragment() {
         viewModel = MovieDetailsViewModel(movieDatabaseDao, movie.id, application)
         binding.viewModel = viewModel
 
+        viewModel.isFavorite.observe(viewLifecycleOwner) { isFavorite ->
+            isFavorite?.let {
+                when (isFavorite) {
+                    true -> {
+                        binding.saveToDBButtonView.visibility = View.GONE
+                        binding.removeFromDBButtonView.visibility = View.VISIBLE
+                    }
+                    false -> {
+                        binding.saveToDBButtonView.visibility = View.VISIBLE
+                        binding.removeFromDBButtonView.visibility = View.GONE
+                    }
+                }
+            }
+
+        }
+
         // Movie details
         viewModel.details.observe(viewLifecycleOwner) { details ->
             details?.let {

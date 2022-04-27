@@ -39,26 +39,27 @@ class MovieDetailsViewModel(private val movieDatabaseDao: MovieDatabaseDao, Movi
     init {
         getMovieDetails()
         getReviews()
+        setIsFavorite(MovieID)
     }
 
     // Saving to cache /////////////////////////////////////////////////////////////////////////////
-    private fun setIsFavorite(movie: Movie) {
+    private fun setIsFavorite(MovieID: Long) {
         viewModelScope.launch {
-            _isFavorite.value = movieDatabaseDao.isFavorite(movie.id)
+            _isFavorite.value = movieDatabaseDao.isFavorite(MovieID)
         }
     }
 
     fun onAddToDBButtonClicked(movie: Movie) {
         viewModelScope.launch {
             movieDatabaseDao.insert(movie)
-            setIsFavorite(movie)
+            setIsFavorite(movie.id)
         }
     }
 
     fun onRemoveFromDBButtonClicked(movie: Movie) {
         viewModelScope.launch {
             movieDatabaseDao.delete(movie)
-            setIsFavorite(movie)
+            setIsFavorite(movie.id)
         }
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////

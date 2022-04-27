@@ -3,30 +3,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="movie"
-            type="aria.moviedb.model.Movie" />
-    </data>
-
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".FragmentFullPoster">
-
-        <ImageView
-            android:id="@+id/posterImageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            bannerImageUrl="@{movie.posterPath}"
-            tools:src="@tools:sample/avatars" />
+        android:layout_height="match_parent">
 
         <Button
             android:id="@+id/return_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_gravity="center_horizontal|bottom"
             android:text="@string/previous"
-            android:layout_gravity="center_horizontal|bottom" />
-    </FrameLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/reviews_list"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/reviews_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/blank"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:text="Hello"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reviews_list" />
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/posterImageView"-->
+        <!--            bannerImageUrl="@{movie.posterPath}"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            tools:src="@tools:sample/avatars" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+        <variable
+            name="movie"
+            type="aria.moviedb.model.Movie" />
+    </data>
+
 </layout>
