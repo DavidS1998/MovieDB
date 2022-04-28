@@ -12,6 +12,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="8dp"
             android:text="@string/previous"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,12 +31,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/blank"
-            android:layout_width="wrap_content"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/videos_list"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            android:text="Hello"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.5"

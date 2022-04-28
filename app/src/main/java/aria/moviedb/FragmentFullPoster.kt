@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import aria.moviedb.adapter.ReviewsAdapter
+import aria.moviedb.adapter.VideosAdapter
 import aria.moviedb.database.MovieDatabase
 import aria.moviedb.database.MovieDatabaseDao
 import aria.moviedb.databinding.FragmentFullPosterBinding
@@ -44,13 +45,21 @@ class FragmentFullPoster : Fragment() {
         viewModel = FullPosterViewModel(movieDatabaseDao, movie.id, application)
 
         // Initialize Recycler adapter
-        val adapter = ReviewsAdapter()
-        binding.reviewsList.adapter = adapter
+        val reviewsAdapter = ReviewsAdapter()
+        binding.reviewsList.adapter = reviewsAdapter
+        val videosAdapter = VideosAdapter()
+        binding.videosList.adapter = videosAdapter
 
         // Puts the data from the ViewModel into the RecyclerView
         viewModel.reviews.observe(viewLifecycleOwner) { reviews ->
             reviews?.let {
-                adapter.data = reviews
+                reviewsAdapter.data = reviews
+            }
+        }
+
+        viewModel.videos.observe(viewLifecycleOwner) { videos ->
+            videos?.let {
+                videosAdapter.data = videos
             }
         }
 

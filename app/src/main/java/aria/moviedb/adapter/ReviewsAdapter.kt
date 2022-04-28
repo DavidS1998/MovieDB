@@ -26,14 +26,14 @@ class ReviewsAdapter() : RecyclerView.Adapter<ReviewsViewHolder>() {
         return ReviewsViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: aria.moviedb.adapter.ReviewsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ReviewsViewHolder, position: Int) {
         val item = data[position]
         holder.authorView.text = item.author
         holder.contentView.text = item.content
     }
 }
 
-class ReviewsViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView) {
+class ReviewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val authorView: TextView = itemView.findViewById(R.id.author)
     val contentView: TextView = itemView.findViewById(R.id.content)
 }
