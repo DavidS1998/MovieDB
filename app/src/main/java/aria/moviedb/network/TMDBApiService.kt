@@ -1,3 +1,5 @@
+import androidx.lifecycle.Transformations.map
+import aria.moviedb.model.DatabaseMovie
 import aria.moviedb.network.DetailsResponse
 import aria.moviedb.network.MovieResponse
 import aria.moviedb.network.ReviewsReponse
@@ -52,10 +54,12 @@ private val movieListRetrofit = Retrofit.Builder()
     .build()
 
 interface TMDBApiService {
-    @GET("popular")
+    @GET("top_rated")
     suspend fun getPopularMovies(
         @Query("api_key")
-        apiKey: String = Secrets.API_KEY
+        apiKey: String = Secrets.API_KEY,
+        @Query("page")
+        page: String = "2"
     ): MovieResponse
 
     @GET("top_rated")
@@ -88,3 +92,4 @@ object TMDBApi {
         movieListRetrofit.create(TMDBApiService::class.java)
     }
 }
+

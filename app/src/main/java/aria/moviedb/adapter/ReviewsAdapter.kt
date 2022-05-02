@@ -33,6 +33,7 @@ class ReviewsAdapter() : RecyclerView.Adapter<ReviewsViewHolder>() {
     }
 }
 
+// TODO: Pass in binding and use that instead
 class ReviewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val authorView: TextView = itemView.findViewById(R.id.author)
     val contentView: TextView = itemView.findViewById(R.id.content)

@@ -23,16 +23,13 @@
 
         <action
             android:id="@+id/action_details_to_list"
-            app:destination="@id/FragmentMovieList"
-            app:popUpTo="@id/nav_graph" />
+            app:destination="@id/FragmentMovieList" />
         <argument
             android:name="movie"
             app:argType="aria.moviedb.model.Movie" />
         <action
             android:id="@+id/action_FragmentMovieDetails_to_fragmentFullPoster"
-            app:destination="@id/fragmentFullPoster"
-            app:popUpTo="@id/FragmentMovieDetails"
-            app:popUpToInclusive="true" />
+            app:destination="@id/fragmentFullPoster" />
     </fragment>
     <fragment
         android:id="@+id/fragmentFullPoster"
@@ -43,7 +40,6 @@
             app:argType="aria.moviedb.model.Movie" />
         <action
             android:id="@+id/action_fragmentFullPoster_to_FragmentMovieDetails"
-            app:destination="@id/FragmentMovieDetails"
-            app:popUpTo="@id/FragmentMovieList" />
+            app:destination="@id/FragmentMovieDetails" />
     </fragment>
 </navigation>

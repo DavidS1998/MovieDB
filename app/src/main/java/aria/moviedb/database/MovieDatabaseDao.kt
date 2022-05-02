@@ -1,10 +1,10 @@
 package aria.moviedb.database
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.lifecycle.LiveData
+import androidx.room.*
+import aria.moviedb.model.DatabaseMovie
 import aria.moviedb.model.Movie
+import aria.moviedb.network.MovieResponse
 
 @Dao
 interface MovieDatabaseDao {
@@ -16,7 +16,7 @@ interface MovieDatabaseDao {
     suspend fun delete(movie: Movie)
 
     @Query("SELECT * from movies ORDER BY id ASC")
-    suspend fun getAllMovies(): List<Movie>
+    suspend fun getAllMovies(): List<DatabaseMovie>
 
     // Does the entry exist in the local favorites database?
     @Query("SELECT EXISTS (SELECT * from movies WHERE id = :id)")

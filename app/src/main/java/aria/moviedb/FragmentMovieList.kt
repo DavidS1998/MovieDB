@@ -106,11 +106,11 @@ class FragmentMovieList : Fragment() {
         return when (item.itemId) {
             R.id.action_popular_movies -> {
                 Timber.i("Popular Movies Clicked")
-                viewModel.getPopularMovies()
+                viewModel.getPopularMoviesFromRepository()
                 true
             }
             R.id.action_top_rated_movies -> {
-                viewModel.getTopMovies()
+                viewModel.getTopMoviesFromRepository()
 
                 Timber.i("Top Rated Movies Clicked")
                 true

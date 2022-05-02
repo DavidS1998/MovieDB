@@ -27,9 +27,10 @@
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintHeight_percent="0.4"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/review_entry"/>
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -41,7 +42,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reviews_list" />
+            app:layout_constraintTop_toBottomOf="@+id/reviews_list"
+            tools:listitem="@layout/trailer_entry"/>
 
         <!--        <ImageView-->
         <!--            android:id="@+id/posterImageView"-->

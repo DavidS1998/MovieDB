@@ -49,6 +49,7 @@ class VideosAdapter() : RecyclerView.Adapter<VideosViewHolder>() {
     }
 }
 
+// TODO: Pass in binding and use that instead
 class VideosViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val titleView: TextView = itemView.findViewById(R.id.video_title_tv)
     val link: TextView = itemView.findViewById(R.id.youtube_link_tv)
