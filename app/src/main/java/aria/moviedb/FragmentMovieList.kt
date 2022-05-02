@@ -15,6 +15,8 @@ import aria.moviedb.database.MovieDatabase
 import aria.moviedb.database.MovieDatabaseDao
 import aria.moviedb.databinding.FragmentMovieListBinding
 import aria.moviedb.network.DataFetchStatus
+import aria.moviedb.network.NetworkStatus
+import aria.moviedb.network.NetworkStatusHelper
 import aria.moviedb.viewmodel.MovieListViewModel
 import aria.moviedb.viewmodel.MovieListViewModelFactory
 import timber.log.Timber
@@ -69,6 +71,16 @@ class FragmentMovieList : Fragment() {
                         binding.statusImage.visibility = View.GONE
                     }
                 }
+            }
+        }
+
+        // Refresh on internet status change
+        NetworkStatusHelper(requireContext().applicationContext).observe(viewLifecycleOwner) {
+            if (it == NetworkStatus.Available) {
+                Timber.d("Internet access restored")
+                viewModel.refreshCurrent()
+            } else {
+                Timber.d("Internet access lost")
             }
         }
 

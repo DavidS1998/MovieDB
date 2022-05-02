@@ -56,7 +56,6 @@ class MovieListViewModel(private val movieDatabaseDao: MovieDatabaseDao, applica
                 _dataFetchStatus.postValue(DataFetchStatus.DONE)
             } catch (e: Exception) {
                 _dataFetchStatus.postValue(DataFetchStatus.ERROR)
-//                _movies.postValue(listOf())
             }
         }
     }
@@ -75,6 +74,13 @@ class MovieListViewModel(private val movieDatabaseDao: MovieDatabaseDao, applica
     fun getSavedMovies() {
         viewModelScope.launch {
             movieRepository.getSavedMovies()
+            _dataFetchStatus.postValue(DataFetchStatus.DONE)
+        }
+    }
+
+    fun refreshCurrent() {
+        viewModelScope.launch {
+            movieRepository.refreshCurrent()
             _dataFetchStatus.postValue(DataFetchStatus.DONE)
         }
     }
