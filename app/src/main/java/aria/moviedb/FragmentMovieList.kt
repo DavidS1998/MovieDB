@@ -102,10 +102,6 @@ class FragmentMovieList : Fragment() {
         }
 
         setHasOptionsMenu(true)
-
-        // Posters layout
-        val manager = GridLayoutManager(activity, 2)
-        binding.movieListRv.layoutManager = manager
         return binding.root
     }
 
