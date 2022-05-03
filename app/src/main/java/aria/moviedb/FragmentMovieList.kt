@@ -84,12 +84,14 @@ class FragmentMovieList : Fragment() {
             }
         }
 
+        // Fill movie list
         viewModel.movies.observe(viewLifecycleOwner) { movies ->
             movies?.let {
                 movieListAdapter.submitList(movies)
             }
         }
 
+        // Navigate to right movie
         viewModel.navigateToMovieData.observe(viewLifecycleOwner) { movie ->
             movie?.let {
                 this.findNavController().navigate(

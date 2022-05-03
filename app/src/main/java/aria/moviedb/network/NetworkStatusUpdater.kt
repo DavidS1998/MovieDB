@@ -6,6 +6,7 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import androidx.lifecycle.LiveData
+import timber.log.Timber
 
 // Two relevant network states
 sealed class NetworkStatus {
@@ -75,6 +76,7 @@ class NetworkStatusHelper(context: Context) : LiveData<NetworkStatus>() {
     // Monitor only when active/needed
     override fun onActive() {
         super.onActive()
+        Timber.d("Network listener activated")
         connectivityManagerCallback = getConnectivityManagerCallback()
         val networkRequest = NetworkRequest
             .Builder()
@@ -86,6 +88,7 @@ class NetworkStatusHelper(context: Context) : LiveData<NetworkStatus>() {
     // Stop monitoring when not needed
     override fun onInactive() {
         super.onInactive()
+        Timber.d("Network listener stopped")
         connectivityManager.unregisterNetworkCallback(connectivityManagerCallback)
     }
 }

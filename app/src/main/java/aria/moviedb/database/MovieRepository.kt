@@ -45,10 +45,7 @@ class MovieRepository(private val database: MovieDatabase) {
                 database.movieCacheDatabaseDao().deleteAll()
                 database.movieCacheDatabaseDao().insertAll(asDatabaseModel(_movies))
             } catch (e: Exception) {
-                // Shows offline icon
-//                if (currentList != 1) {
-                    database.movieCacheDatabaseDao().deleteAll()
-//                }
+                database.movieCacheDatabaseDao().deleteAll()
                 throw e
             }
         }
@@ -63,10 +60,7 @@ class MovieRepository(private val database: MovieDatabase) {
                 database.movieCacheDatabaseDao().deleteAll()
                 database.movieCacheDatabaseDao().insertAll(asDatabaseModel(_movies))
             } catch (e: Exception) {
-                // Shows offline icon
-//                if (currentList != 2) {
-                    database.movieCacheDatabaseDao().deleteAll()
-//                }
+                database.movieCacheDatabaseDao().deleteAll()
                 throw e
             }
         }

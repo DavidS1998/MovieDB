@@ -23,13 +23,16 @@
             bind:layout_constraintEnd_toEndOf="@+id/movie_list_rv"
             bind:layout_constraintStart_toStartOf="@+id/movie_list_rv"
             bind:layout_constraintTop_toTopOf="@+id/movie_list_rv"
-            bind:srcCompat="@drawable/ic_connection_error" />
+            bind:srcCompat="@drawable/ic_connection_error"
+            tools:visibility="gone"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movie_list_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
+            tools:listitem="@layout/movie_list_item_posters"
+            bind:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            bind:spanCount="2"
 
             bind:layout_constraintBottom_toBottomOf="parent"
             bind:layout_constraintEnd_toEndOf="parent"
